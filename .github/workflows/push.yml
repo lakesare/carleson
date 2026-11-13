@@ -20,7 +20,10 @@ jobs:
           ! (find Carleson -name "*.lean" -type f -print0 | xargs -0 grep -E -n '^import Mathlib$')
 
   build_project:
-    runs-on: ubuntu-latest
+    # Pinned to Ubuntu 24.04: on ubuntu-26.04 the doc-gen4 API docs build fails with
+    # "resource exhausted (error code: 12, not enough memory)" while running srcUri.github.
+    # Switch back to ubuntu-latest once https://github.com/leanprover/doc-gen4/issues/434 is fixed.
+    runs-on: ubuntu-24.04
     name: Build project
     steps:
       - name: Cleanup to free disk space
